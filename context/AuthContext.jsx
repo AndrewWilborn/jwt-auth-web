@@ -1,10 +1,9 @@
 "use client"
-
 import { createContext, useState, useEffect } from "react"
 
 export const AuthContext = createContext()
 
-export function AuthProvider({ childern }){
+export function AuthProvider({ children }){
   const [user, setUser] = useState()
   const [token, setToken] = useState()
 
@@ -30,9 +29,7 @@ export function AuthProvider({ childern }){
     sessionStorage.clear()
   }
 
-  return 
-  <AuthContext.Provider value={{ user, token, handleLogin, handleLogout }}>
-    {childern}
+  return <AuthContext.Provider value={{ user, token, handleLogin, handleLogout }}>
+    {children}
   </AuthContext.Provider>
-
 }

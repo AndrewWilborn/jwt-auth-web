@@ -1,9 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { useRouter } from "next/navigation"
+import { AuthContext } from "@/context/AuthContext"
 
 export default function Login() {
   
+  const { handleLogin } = useContext(AuthContext)
+  const router = useRouter()
   const [err, setErr] = useState()
 
   const handleLoginForm = (e) => {
@@ -23,6 +27,8 @@ export default function Login() {
           setErr(data.message)
           return
         }
+        handleLogin(data)
+        router.push("/dashboard")
       })
       .catch(e => {
         setErr(e.message)
