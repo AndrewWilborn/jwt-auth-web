@@ -1,12 +1,21 @@
 "use client"
 
-import { createContext, useState } from "react"
+import { createContext, useState, useEffect } from "react"
 
 export const AuthContext = createContext()
 
 export function AuthProvider({ childern }){
   const [user, setUser] = useState()
   const [token, setToken] = useState()
+
+  useEffect(() => {
+    if(!user) {
+      const _user = sessionStorage.getItem("user")
+      const _token = sessionStorage.getItem("token")
+      if(_user) setUser(JSON.parse(_user))
+      if(_token) setToken(JSON.parse(_token))
+    }
+  }, [])
 
   const handleLogin = (data) => {
     setUser(data.user)
